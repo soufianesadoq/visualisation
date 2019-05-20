@@ -1,6 +1,6 @@
 
 <?php
-include "include/connection.php"
+include "include/connection.php";
 
 $request=$_REQUEST;
 $col =array(
@@ -13,7 +13,7 @@ $col =array(
 );  //create column like table in database
 
 $sql ="SELECT * FROM plots";
-$query=mysqli_query($con,$sql);
+$query=mysqli_query($conn,$sql);
 
 $totalData=mysqli_num_rows($query);
 
@@ -25,18 +25,17 @@ if(!empty($request['search']['value'])){
     $sql.=" AND (plot_Id Like '".$request['search']['value']."%' ";
     $sql.=" OR ep_plot_Id Like '".$request['search']['value']."%' ";
     $sql.=" OR exploratory Like '".$request['search']['value']."%' ";
-    $sql.=" OR longitude Like '".$request['search']['value']."%' ";
     $sql.=" OR latitude Like '".$request['search']['value']."%' ";
+    $sql.=" OR longitude Like '".$request['search']['value']."%' ";
     $sql.=" OR landuse Like '".$request['search']['value']."%' )";
 }
-$query=mysqli_query($con,$sql);
+$query=mysqli_query($conn,$sql);
 $totalData=mysqli_num_rows($query);
 
 //Order
-$sql.=" ORDER BY ".$col[$request['order'][0]['column']]."   ".$request['order'][0]['dir']."  LIMIT ".
-    $request['start']."  ,".$request['length']."  ";
+$sql.=" ORDER BY ".$col[$request['order'][0]['column']]."   ".$request['order'][0]['dir']."  LIMIT ".$request['start']."  ,".$request['length']."  ";
 
-$query=mysqli_query($con,$sql);
+$query=mysqli_query($conn,$sql);
 
 $data=array();
 
@@ -48,18 +47,20 @@ while($row=mysqli_fetch_array($query)){
     $subdata[]=$row[3]; //latitude
     $subdata[]=$row[4]; //longitude
     $subdata[]=$row[5]; //landuse
-                                    //create event on click in button edit in cell datatable for display modal dialog           $row[0] is id in table on database
-    $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[1].'"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
+                                   //create event on click in button edit in cell datatable for display modal dialog           $row[1] is id in table on database
+/*  $subdata[]='<button type="button" id="getEdit" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" data-id="'.$row[1].'"><i class="glyphicon glyphicon-pencil">&nbsp;</i>Edit</button>
                 <button type="button" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash">&nbsp;</i>Delete</button>';
+*/
     $data[]=$subdata;
 }
 
 $json_data=array(
-    "draw"              =>  intval($request['draw']),
-    "recordsTotal"      =>  intval($totalData),
-    "recordsFiltered"   =>  intval($totalFilter),
-    "data"              =>  $data
+  "draw"              =>  intval($request['draw']),
+  "recordsTotal"      =>  intval($totalData),
+  "recordsFiltered"   =>  intval($totalFilter),
+  "data"              =>  $data
 );
+
 
 echo json_encode($json_data);
 
@@ -67,8 +68,8 @@ echo json_encode($json_data);
 
 
 
+<!--
 
-<?php/*
 include "include/ajax.php";
 include "include/connection.php";
 extract($_POST);
@@ -201,9 +202,9 @@ if(isset($_POST['deleteid']))
 
 
 
-<?php/*
+
 ## Database configuration
-include 'include/connection.php';
+/*include 'include/connection.php';
 
 ## Read value
 $draw = $_POST['draw'];
@@ -217,29 +218,29 @@ $searchValue = $_POST['search']['value']; // Search value
 ## Search
 $searchQuery = " ";
 if($searchValue != ''){
-   $searchQuery = " and (ep_plot_Id like '%".$searchValue."%' or
-        plot_Id like '%".$searchValue."%' or
-        longitude like'%".$searchValue."%'or
+   $searchQuery = " and (plot_Id like '%".$searchValue."%' or
+        ep_plot_Id like '%".$searchValue."%' or
+        exploratory like'%".$searchValue."%'or
         latitude like'%".$searchValue."%'or
-        landuse like'%".$searchValue."%'or
-        exploratory like'%".$searchValue."%' ) ";
+        longitude like'%".$searchValue."%'or
+        landuse like'%".$searchValue."%' ) ";
 }
 
 ## Total number of records without filtering
-$sel = mysqli_query($con,"select count(*) as allcount from plots");
+$sel = mysqli_query($conn,"select count(*) as allcount from plots");
 $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
 
 ## Total number of record with filtering
-$sel = mysqli_query($con,"select count(*) as allcount from plots WHERE 1 ".$searchQuery);
+$sel = mysqli_query($conn,"select count(*) as allcount from plots WHERE 1 ".$searchQuery);
 $records = mysqli_fetch_assoc($sel);
 $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
 $empQuery = "select * from plots WHERE 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
-$empRecords = mysqli_query($con, $empQuery);
+$empRecords = mysqli_query($conn, $empQuery);
 $data = array();
-
+if(mysqli_num_rows($empRecords) > 0){
 while ($row = mysqli_fetch_assoc($empRecords)) {
    $data[] = array(
       "plot_Id"=>$row['plot_Id'],
@@ -250,7 +251,10 @@ while ($row = mysqli_fetch_assoc($empRecords)) {
       "landuse"=>$row['landuse']
    );
 }
-
+}
+else {
+  echo "eroor";
+}
 ## Response
 $response = array(
   "draw" => intval($draw),
@@ -259,5 +263,6 @@ $response = array(
   "aaData" => $data
 );
 
-echo json_encode($response);*/
-?>
+echo json_encode($response);
+*/?>
+-->

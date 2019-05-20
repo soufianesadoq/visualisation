@@ -2,7 +2,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-<script>/*
+
+<script type="text/javascript">/*
 
 $(document).ready(function () {
     readRecords();
@@ -97,6 +98,7 @@ function GetDetails(id){
 
 
 
+
 function UpdateDetails() {
 
   var plot_Id =  $("#update_plot_Id").val();
@@ -119,14 +121,14 @@ function UpdateDetails() {
         }
     );
 }
-
 $(document).ready(function(){
-   $('#datatablee').DataTable({
+   $('#myexm').DataTable({
       'processing': true,
       'serverSide': true,
       'serverMethod': 'post',
       'ajax': {
           'url':'backend.php'
+
       },
       'columns': [
          { data: 'plot_Id' },
@@ -137,15 +139,16 @@ $(document).ready(function(){
          { data: 'landuse' },
       ]
    });
-});
+});*/
 $(document).ready(function(){
-            var dataTable=$('#myexm').DataTable({
-                "processing": true,
-                "serverSide":true,
+            $('#myexm').DataTable({
+               "processing": true,
+               "serverSide":true,
                 "ajax":{
                     url:"backend.php",
                     type:"post"
                 }
+
             });
-        });*/
+        });
 </script>

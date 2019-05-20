@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<?php require 'modals.php'?>
+<?php include 'modals.php';?>
+<?php include 'include/ajax.php';?>
 <html lang="en">
 
 <head>
@@ -10,34 +11,19 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - Tables</title>
-
-    <!-- datatable lib -->
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-  <!-- Datatable CSS -->
-  <link href='//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css' rel='stylesheet' type='text/css'>
-
-  <!-- jQuery Library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-  <!-- Datatable JS -->
-  <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
+  <title>Tables</title>
+  <?php include 'links.php';?>
   <!-- Custom fonts for this template -->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
   <!-- Custom styles for this template -->
   <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
   <!-- Custom styles for this page -->
   <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
+
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -364,7 +350,7 @@
              </div>
             <div class="card-body">
               <div class="table-responsive" >
-                <table class='display' id="myexm"  width="100%" cellspacing="0">
+                <table  class="display" id="myexm"  width="100%" cellspacing="0">
                   <thead class="thead-light">
                   <tr>
       							<th class="th-sm">plot_Id</th>
@@ -375,20 +361,19 @@
       							<th class="th-sm">landuse</th>
       						</tr>
                   </thead>
+                  <tfoot class="thead-light">
+                  <tr>
+      							<th class="th-sm">plot_Id</th>
+      							<th class="th-sm">ep_plot_Id</th>
+      							<th class="th-sm">exploratory</th>
+      							<th class="th-sm">latitude</th>
+      							<th class="th-sm">longitude</th>
+      							<th class="th-sm">landuse</th>
+      						</tr>
+                </tfoot>
                 </table>
               </div>
-              <script>
-        $(document).ready(function(){
-            var dataTable=$('#myexm').DataTable({
-                "processing": true,
-                "serverSide":true,
-                "ajax":{
-                    url:"backend.php",
-                    type:"post"
-                }
-            });
-        });
-    </script>
+
             </div>
           </div>
 
